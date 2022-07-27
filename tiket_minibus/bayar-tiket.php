@@ -5,9 +5,12 @@ include 'navbar.php';
 
 if(isset($_POST["submit"])) {
     $bayar_tiket = htmlspecialchars($_POST["bayar"]);
+    $metode = htmlspecialchars($_POST["metode"]);
     
     if(empty($bayar_tiket)) {
-        $notifikasi_gagal = "anda belum mengisi form";
+        $notifikasi_gagal = "anda belum mengisi kode pembayaran";
+    } else if(empty($metode)) {
+        $notifikasi_gagal = "anda belum memilih metode pembayaran";
     } else {
         $sql = "SELECT status_pembayaran, kode_pembayaran FROM data_penumpang WHERE kode_pembayaran = '$bayar_tiket' ";
         $result = mysqli_query($conn, $sql);
@@ -55,6 +58,32 @@ if(isset($_POST["submit"])) {
                 <label>
                     Kode pembayaran
                     <input type="text" name="bayar">
+                </label>
+
+                <br>
+
+                <label>
+                    Metode pembayaran
+                    <select name="metode">
+                        <option value="" selected hidden>Pilih metode pembayaran</option>
+                        <option value="bca">Bank BCA</option>
+                        <option value="mandiri">Bank Mandiri</option>
+                        <option value="bni">Bank BNI</option>
+                    </select>
+                </label>
+
+                <br><br><br>
+                
+                <label>
+                    Nama Pemilik Rekening
+                    <input type="text" name="nama_pemilik_rekening" value="Alpha" disabled>
+                </label>
+
+                <br>
+
+                <label>
+                    Nomor Rekening
+                    <input type="text" name="nomor_rekening" value="123456789" disabled>
                 </label>
 
                 <p class="teks-hijau"><?php if(isset($notifikasi_berhasil)) { echo $notifikasi_berhasil; }; ?></p>
