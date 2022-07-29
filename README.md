@@ -1,2 +1,2 @@
-# practice
-practice making websites
+# practice-minibus-ticket
+simple minibus ticket booking system using PHP and MySQL
